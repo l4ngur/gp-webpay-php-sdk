@@ -77,9 +77,10 @@ final class PaymentRequest
     {
         $params = [];
         foreach ($this->params as $id => $param) {
-            if ($id !== 'LANG') {
-                $params[] = $param;
+            if ($id === 'LANG') {
+                continue;
             }
+            $params[$id] = $param;
         }
 
         return $this->params;
