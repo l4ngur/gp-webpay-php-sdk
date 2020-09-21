@@ -83,7 +83,7 @@ final class PaymentRequest
             $params[$id] = $param;
         }
 
-        return $this->params;
+        return $params;
     }
 
     /**
