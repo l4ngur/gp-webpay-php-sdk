@@ -15,40 +15,35 @@ class PaymentResponse
     private $digest1;
 
     /**
-     * @param string      $operation
-     * @param string      $ordernumber
-     * @param string      $merordernum
-     * @param int         $prcode
-     * @param int         $srcode
-     * @param string      $resulttext
-     * @param string      $digest
-     * @param string      $digest1
-     * @param string|null $md
+     * PaymentResponse constructor.
+     * @param array $query
      */
-    public function __construct(
-        string $operation,
-        string $ordernumber,
-        string $merordernum = null,
-        int $prcode,
-        int $srcode,
-        string $resulttext,
-        string $digest,
-        string $digest1,
-        string $md = null
-    ) {
-        $this->params['operation'] = $operation;
-        $this->params['ordermumber'] = $ordernumber;
-        if ($merordernum !== null) {
-            $this->params['merordernum'] = $merordernum;
+    public function __construct(array $query)
+    {
+        foreach ($query as $id => $value) {
+            switch ($id) {
+                case 'DIGEST':
+                {
+                    $this->digest = $value;
+                    break;
+                }
+                case 'DIGEST1':
+                {
+                    $this->digest1 = $value;
+                    break;
+                }
+                case 'PRCODE':
+                case 'SRCODE':
+                {
+                    $this->params[$id] = (int) $value;
+                    break;
+                }
+                default:
+                {
+                    $this->params[$id] = $value;
+                }
+            }
         }
-        $this->params['prcode'] = $prcode;
-        $this->params['srcode'] = $srcode;
-        $this->params['resulttext'] = $resulttext;
-        if ($md !== null) {
-            $this->params['md'] = $md;
-        }
-        $this->digest = $digest;
-        $this->digest1 = $digest1;
     }
 
     /**
@@ -72,7 +67,7 @@ class PaymentResponse
      */
     public function hasError(): bool
     {
-        return (bool) $this->params['prcode'] || (bool) $this->params['srcode'];
+        return $this->params['PRCODE'] !== 0;
     }
 
     /**

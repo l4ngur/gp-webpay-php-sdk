@@ -126,4 +126,24 @@ final class PaymentRequest
     {
         $this->params['LANG'] = $value;
     }
+
+    /**
+     * Add Description parameter to request fields
+     *
+     * @param string $value field value
+     */
+    public function setPaymentMethod($value)
+    {
+        $this->params['PAYMETHOD'] = $value;
+    }
+
+    /**
+     * Add Description parameter to request fields
+     *
+     * @param string $value field value
+     */
+    public function setPaymentMethods($value)
+    {
+        $this->params['PAYMETHODS'] = $value;
+    }
 }
