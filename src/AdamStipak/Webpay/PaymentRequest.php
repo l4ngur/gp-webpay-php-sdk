@@ -146,4 +146,13 @@ final class PaymentRequest
     {
         $this->params['PAYMETHODS'] = $value;
     }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    public function setAddInfo($value)
+    {
+        $this->params['ADDINFO'] = $value;
+    }
 }
